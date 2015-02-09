@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results trackingurl="html/resources/TrackingConfig_80a166e45834cf806bdeebbd5e4da0af.zip">
+    <arel><![CDATA[html/index.html?215fb803ba09ff20b3809141c7894e12]]></arel>
+    <object id="model1">
+        <title><![CDATA[Mammut]]></title>
+        <assets3d>
+            <model>
+                <![CDATA[html/resources/97e211852373189b8583ee9d7131e61a/97e211852373189b8583ee9d7131e61a.zip]]></model>
+            <transform>
+                <translation>
+                    <x>-31.1273021698</x>
+                    <y>21.119808197</y>
+                    <z>4.2180151939</z>
+                </translation>
+                <rotation type="eulerdeg">
+                    <x>0.0</x>
+                    <y>0.0</y>
+                    <z>0.0</z>
+                </rotation>
+                <scale>
+                    <x>0.8000000119</x>
+                    <y>0.8000000119</y>
+                    <z>0.8000000119</z>
+                </scale>
+            </transform>
+            <properties>
+                <coordinatesystemid>1</coordinatesystemid>
+            </properties>
+        </assets3d>
+        <viewparameters>
+            <visibility>
+                <liveview>false</liveview>
+            </visibility>
+        </viewparameters>
+    </object>
+</results>
