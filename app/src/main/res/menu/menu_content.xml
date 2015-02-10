@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="pl.solaris.arexperience.activity.ContentActivity">
+    <item
+        android:id="@+id/action_refresh"
+        android:title="Reload"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/action_copy"
+        android:icon="@drawable/abc_ic_menu_copy_mtrl_am_alpha"
+        android:title="Copy"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+        android:title="Share"
+        app:showAsAction="always" />
+</menu>

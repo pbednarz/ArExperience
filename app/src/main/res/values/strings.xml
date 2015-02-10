@@ -8,4 +8,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_arelview">ARELViewActivity</string>
+    <string name="title_activity_content">ContentActivity</string>
+
+    <string name="on">|</string>
+    <string name="off">0</string>
+    <string name="flash">FLASH: </string>
 </resources>

@@ -18,13 +18,14 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.metaio.sdk.jni.Camera;
+import com.metaio.sdk.jni.CameraVector;
 import com.metaio.sdk.jni.ERENDER_SYSTEM;
 import com.metaio.sdk.jni.ESCREEN_ROTATION;
 import com.metaio.sdk.jni.IGeometry;
 import com.metaio.sdk.jni.IMetaioSDKAndroid;
 import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.MetaioSDK;
+import com.metaio.sdk.jni.Vector2di;
 import com.metaio.tools.Memory;
 import com.metaio.tools.Screen;
 import com.metaio.tools.SystemInfo;
@@ -70,7 +71,7 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
 
     /**
      * Provide resource for GUI overlay if required.
-     * <p/>
+     * <p>
      * The resource is inflated into mGUIView which is added in onStart
      *
      * @return Resource ID of the GUI view
@@ -98,6 +99,15 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
     protected abstract void onGeometryTouched(IGeometry geometry);
 
     /**
+     * Function for fast opening some layout
+     *
+     * @param savedInstanceState
+     * @param mGUIView
+     */
+    protected void onCreateView(Bundle savedInstanceState, View mGUIView) {
+    }
+
+    /**
      * Load native libs required by the Metaio SDK
      */
     protected void loadNativeLibs() throws UnsatisfiedLinkError {
@@ -107,11 +117,35 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
     }
 
     /**
-     * Start the default back facing camera. Override this to change the camera or its parameters
-     * such as resolution, image flip or frame rate.
+     * Start camera. Override this to change camera or its parameters such as resolution, image flip
+     * or frame rate
      */
-    protected void startCamera() {
-        metaioSDK.startCamera(Camera.FACE_BACK);
+    public void startCamera() {
+        final CameraVector cameras = metaioSDK.getCameraList();
+        com.metaio.sdk.jni.Camera cameraFacingFront = null;
+        com.metaio.sdk.jni.Camera cameraFacingBack = null;
+        com.metaio.sdk.jni.Camera camera = null;
+        if (!cameras.isEmpty()) {
+            for (int i = 0; i < cameras.size(); i++) {
+                if (cameras.get(i).getFacing() == com.metaio.sdk.jni.Camera.FACE_BACK) {
+                    cameraFacingBack = cameras.get(i);
+                    break;
+                } else if (cameras.get(i).getFacing() == com.metaio.sdk.jni.Camera.FACE_FRONT) {
+                    cameraFacingFront = cameras.get(i);
+                }
+            }
+
+            if (cameraFacingBack != null)
+                camera = cameraFacingBack;
+            else if (cameraFacingFront != null)
+                camera = cameraFacingFront;
+            if (camera != null) {
+                camera.setResolution(new Vector2di(640, 480));
+                camera.setYuvPipeline(true);
+                camera.setDownsample(2);
+                metaioSDK.startCamera(camera);
+            }
+        }
     }
 
     @SuppressLint("InlinedApi")
@@ -145,8 +179,9 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
             final int layout = getGUILayout();
             if (layout != 0) {
                 mGUIView = View.inflate(this, layout, null);
-                if (mGUIView == null)
-                    MetaioDebug.log(Log.ERROR, "ARViewActivity: error inflating the given layout: " + layout);
+                if (mGUIView != null) {
+                    onCreateView(savedInstanceState, mGUIView);
+                }
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {

@@ -55,21 +55,34 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".tutorial.TutorialActivity"
-            android:label="@string/app_name">
+            android:name=".MainActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".tutorial.TutorialActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ContentLoaderActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_arelview" />
         <activity
             android:name=".ARELViewActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
-            android:label="@string/title_activity_arelview"></activity>
+            android:label="@string/title_activity_arelview" />
+        <activity
+            android:name=".RecognitionActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:label="@string/title_activity_arelview" />
+        <activity
+            android:name=".activity.ContentActivity"
+            android:label="@string/title_activity_content"
+            android:launchMode="singleInstance"></activity>
     </application>
 
 </manifest>

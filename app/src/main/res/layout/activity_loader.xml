@@ -1,12 +1,13 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pl.solaris.arexperience.ARELViewActivity">
+    android:background="@android:color/black"
+    tools:context="pl.solaris.arexperience.MainActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="36dp"
         android:background="@drawable/ic_frame_normal" />
-</RelativeLayout>
+</FrameLayout>

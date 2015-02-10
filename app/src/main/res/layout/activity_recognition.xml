@@ -1,0 +1,49 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="36dp"
+    android:background="@drawable/ic_frame_normal"
+    android:padding="8dp">
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/flashSwitch"
+        style="@style/AppTheme.Widget.SwitchCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_margin="12dp"
+        android:checked="false"
+        android:drawableLeft="@drawable/ic_flash" />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        fab:fab_addButtonColorNormal="@color/white"
+        fab:fab_addButtonColorPressed="@color/white_pressed"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_addButtonSize="mini">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/accent"
+            fab:fab_colorPressed="@color/accent_dark"
+            fab:fab_icon="@drawable/btn_star_mtrl_alpha"
+            fab:fab_title="Label on the right" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_qrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/accent"
+            fab:fab_colorPressed="@color/accent_dark"
+            fab:fab_icon="@drawable/ic_qr"
+            fab:fab_title="Another one on the right" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+</FrameLayout>
