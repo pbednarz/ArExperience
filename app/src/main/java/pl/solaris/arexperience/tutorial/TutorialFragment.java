@@ -9,12 +9,16 @@ import android.view.ViewGroup;
 import pl.solaris.arexperience.R;
 
 public class TutorialFragment extends Fragment {
+
+    public static final String ARGS_POSITION = "TutorialFragment:POSITION";
+
     public TutorialFragment() {
     }
 
-    public static TutorialFragment newInstance() {
+    public static TutorialFragment newInstance(int position) {
         TutorialFragment fragment = new TutorialFragment();
         Bundle args = new Bundle();
+        args.putInt(ARGS_POSITION, position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -22,15 +26,14 @@ public class TutorialFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tutorial, container, false);
+        View root = inflater.inflate(R.layout.fragment_tutorial, container, false);
+        root.setId(getArguments().getInt(ARGS_POSITION, -1));
+        return root;
     }
 
 }

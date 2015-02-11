@@ -1,5 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!--anim offst = size + positionY = 40dp+24dp-->
+    <dimen name="fab_anim_offset">64dp</dimen>
+    <dimen name="frame_padding">16dp</dimen>
+    <dimen name="tutorial_bottom_height">64dp</dimen>
 </resources>

@@ -1,13 +1,11 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/abc_search_url_text_pressed"
-    tools:context=".MainActivity">
+    android:background="@color/abc_search_url_text_pressed">
 
-    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -15,14 +13,44 @@
     <pl.solaris.arexperience.view.CircleIndicator
         android:id="@+id/indicator"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal|bottom"
+        android:layout_height="@dimen/tutorial_bottom_height"
+        android:layout_alignParentBottom="true"
         app:ci_animator="@animator/scale_with_alpha" />
 
-    <Button
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/tutorial_bottom_height"
+        android:background="@color/white_semitransparent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tutorial_bottom_height"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/skip_btn"
+        android:gravity="center"
+        android:paddingLeft="4dp"
+        android:paddingRight="8dp"
+        android:text="@string/done"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tutorial_bottom_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:paddingLeft="4dp"
+        android:paddingRight="8dp"
+        android:text="@string/skip"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
+
+    <ImageView
         android:id="@+id/skip_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:text="Skip" />
-</FrameLayout>
+        android:layout_height="@dimen/tutorial_bottom_height"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_action_next_item" />
+</RelativeLayout>

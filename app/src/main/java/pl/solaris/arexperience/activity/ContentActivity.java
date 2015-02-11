@@ -74,7 +74,7 @@ public class ContentActivity extends ActionBarActivity {
 
     public void configureWebSettings() {
         WebSettings s = mWebView.getSettings();
-        s.setBuiltInZoomControls(true);
+        s.setBuiltInZoomControls(false);
         s.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         s.setUseWideViewPort(true);
         s.setLoadWithOverviewMode(true);

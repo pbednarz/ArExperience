@@ -9,34 +9,35 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.solaris.arexperience.MainActivity;
 import pl.solaris.arexperience.R;
+import pl.solaris.arexperience.metaio.ContentLoaderActivity;
 import pl.solaris.arexperience.view.CircleIndicator;
 
 
 public class TutorialActivity extends ActionBarActivity {
 
     private ViewPager defaultViewpager;
-    private FrameLayout rlRoot;
+    private View rlRoot;
     private List<Integer> colorList;
     private int time;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
-        rlRoot = (FrameLayout) findViewById(R.id.root);
+        rlRoot = findViewById(R.id.root);
         colorList = new ArrayList<>();
         rlRoot.setBackgroundColor(Color.rgb(0, 187, 211));
         colorList.add(Color.rgb(0, 187, 211));
         colorList.add(Color.rgb(255, 167, 37));
         colorList.add(Color.rgb(52, 172, 113));
         defaultViewpager = (ViewPager) findViewById(R.id.pager);
+        defaultViewpager.setOffscreenPageLimit(2);
         CircleIndicator defaultIndicator = (CircleIndicator) findViewById(R.id.indicator);
         final DemoPagerAdapter defaultPagerAdapter = new DemoPagerAdapter(getSupportFragmentManager());
         defaultViewpager.setAdapter(defaultPagerAdapter);
@@ -73,7 +74,7 @@ public class TutorialActivity extends ActionBarActivity {
         findViewById(R.id.skip_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TutorialActivity.this, MainActivity.class));
+                startActivity(new Intent(TutorialActivity.this, ContentLoaderActivity.class));
                 finish();
             }
         });
@@ -95,7 +96,7 @@ public class TutorialActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int i) {
-            return TutorialFragment.newInstance();
+            return TutorialFragment.newInstance(i);
         }
 
         @Override

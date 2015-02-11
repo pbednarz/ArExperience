@@ -11,6 +11,8 @@
     <string name="title_activity_content">ContentActivity</string>
 
     <string name="on">|</string>
-    <string name="off">0</string>
+    <string name="off">◯</string>
     <string name="flash">FLASH: </string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
 </resources>

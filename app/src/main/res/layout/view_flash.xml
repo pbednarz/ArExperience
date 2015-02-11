@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <pl.solaris.arexperience.view.FlashSwitch
+        android:id="@+id/flashSwitch"
+        style="@style/AppTheme.Widget.SwitchCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:checked="false"
+        android:drawableLeft="@drawable/ic_flash"
+        android:padding="8dp" />
+</merge>

@@ -10,7 +10,7 @@
     <style name="AppTheme.Fullscreen">
         <item name="android:windowBackground">@null</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="AppTheme.Widget.SwitchCompat" parent="Widget.AppCompat.CompoundButton.Switch">

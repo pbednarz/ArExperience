@@ -7,6 +7,5 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="36dp"
-        android:background="@drawable/ic_frame_normal" />
+        android:background="@drawable/ic_frame" />
 </FrameLayout>

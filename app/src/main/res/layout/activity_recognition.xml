@@ -1,27 +1,25 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="36dp"
-    android:background="@drawable/ic_frame_normal"
-    android:padding="8dp">
+    android:background="@drawable/ic_frame"
+    android:padding="@dimen/frame_padding">
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/flashSwitch"
-        style="@style/AppTheme.Widget.SwitchCompat"
+    <include layout="@layout/view_flash" />
+
+    <ImageView
+        android:id="@+id/indicator_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|top"
-        android:layout_margin="12dp"
-        android:checked="false"
-        android:drawableLeft="@drawable/ic_flash" />
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_qr" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/actions_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         fab:fab_addButtonColorNormal="@color/white"
         fab:fab_addButtonColorPressed="@color/white_pressed"
         fab:fab_addButtonPlusIconColor="@color/half_black"
@@ -42,7 +40,7 @@
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/accent"
             fab:fab_colorPressed="@color/accent_dark"
-            fab:fab_icon="@drawable/ic_qr"
+            fab:fab_icon="@drawable/ic_eye"
             fab:fab_title="Another one on the right" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
