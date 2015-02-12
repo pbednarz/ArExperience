@@ -76,6 +76,7 @@ public class RecognitionActivity extends ARViewActivity {
         ButterKnife.inject(this, mGUIView);
         flashBtn.init();
         if (savedInstanceState == null) {
+            actionsMenu.collapse();
             actionsMenu.setTranslationY(getResources().getDimensionPixelOffset(R.dimen.fab_anim_offset));
             flRoot.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
@@ -141,7 +142,6 @@ public class RecognitionActivity extends ARViewActivity {
     @OnClick(R.id.action_star)
     public void startClicked(View doClick) {
         actionsMenu.collapse();
-
     }
 
     public void openContentActivity(String url) {

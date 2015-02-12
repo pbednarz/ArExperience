@@ -10,9 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import pl.solaris.arexperience.R;
 import pl.solaris.arexperience.metaio.ContentLoaderActivity;
 import pl.solaris.arexperience.view.CircleIndicator;
@@ -20,46 +20,53 @@ import pl.solaris.arexperience.view.CircleIndicator;
 
 public class TutorialActivity extends ActionBarActivity {
 
-    private ViewPager defaultViewpager;
-    private View rlRoot;
-    private List<Integer> colorList;
+    private static final int colorArray[] = {Color.rgb(0, 187, 211),
+            Color.rgb(255, 167, 37),
+            Color.rgb(52, 172, 113)
+    };
+    @InjectView(R.id.pager)
+    ViewPager viewPager;
+    @InjectView(R.id.root)
+    View rlRoot;
+    @InjectView(R.id.indicator)
+    CircleIndicator circleIndicator;
+    @InjectView(R.id.next_btn)
+    View nextBtn;
+    @InjectView(R.id.skip_btn)
+    View skipBtn;
+    @InjectView(R.id.done_btn)
+    View doneBtn;
     private int time;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
-        rlRoot = findViewById(R.id.root);
-        colorList = new ArrayList<>();
-        rlRoot.setBackgroundColor(Color.rgb(0, 187, 211));
-        colorList.add(Color.rgb(0, 187, 211));
-        colorList.add(Color.rgb(255, 167, 37));
-        colorList.add(Color.rgb(52, 172, 113));
-        defaultViewpager = (ViewPager) findViewById(R.id.pager);
-        defaultViewpager.setOffscreenPageLimit(2);
-        CircleIndicator defaultIndicator = (CircleIndicator) findViewById(R.id.indicator);
-        final DemoPagerAdapter defaultPagerAdapter = new DemoPagerAdapter(getSupportFragmentManager());
-        defaultViewpager.setAdapter(defaultPagerAdapter);
-        defaultIndicator.setViewPager(defaultViewpager);
-        defaultIndicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        ButterKnife.inject(this);
+        rlRoot.setBackgroundColor(colorArray[0]);
+        viewPager.setOffscreenPageLimit(2);
+        final TutorialPagerAdapter defaultPagerAdapter = new TutorialPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(defaultPagerAdapter);
+        circleIndicator.setViewPager(viewPager);
+        circleIndicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+                switchSkipAndNextButton(position);
             }
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 time++;
                 if (positionOffset == 0) {
-                    rlRoot.setBackgroundColor(colorList.get(position));
+                    rlRoot.setBackgroundColor(colorArray[position]);
                 } else if (time % 3 == 0) {
-                    rlRoot.setBackgroundColor(blendColors(colorList.get(position + 1), colorList.get(position), positionOffset));
+                    rlRoot.setBackgroundColor(blendColors(colorArray[position + 1], colorArray[position], positionOffset));
                 }
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
         });
-        defaultViewpager.setPageTransformer(false, new ViewPager.PageTransformer() {
+        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
             @Override
             public void transformPage(View view, float position) {
                 int pageWidth = view.getWidth();
@@ -70,14 +77,19 @@ public class TutorialActivity extends ActionBarActivity {
                 }
             }
         });
+    }
 
-        findViewById(R.id.skip_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TutorialActivity.this, ContentLoaderActivity.class));
-                finish();
-            }
-        });
+    @OnClick({R.id.skip_btn, R.id.done_btn})
+    public void skipClicked() {
+        startActivity(new Intent(TutorialActivity.this, ContentLoaderActivity.class));
+        finish();
+    }
+
+    @OnClick(R.id.next_btn)
+    public void nextClicked() {
+        if (viewPager.getCurrentItem() < colorArray.length) {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+        }
     }
 
     private int blendColors(int color1, int color2, float ratio) {
@@ -88,9 +100,21 @@ public class TutorialActivity extends ActionBarActivity {
         return (0xFF << 24) | (r << 16) | (g << 8) | b;
     }
 
-    public class DemoPagerAdapter extends FragmentPagerAdapter {
+    public void switchSkipAndNextButton(int position) {
+        if (skipBtn.getVisibility() == View.VISIBLE && position == colorArray.length - 1) {
+            doneBtn.setVisibility(View.VISIBLE);
+            skipBtn.setVisibility(View.INVISIBLE);
+            nextBtn.setVisibility(View.INVISIBLE);
+        } else if (position <= colorArray.length && skipBtn.getVisibility() == View.INVISIBLE) {
+            skipBtn.setVisibility(View.VISIBLE);
+            nextBtn.setVisibility(View.VISIBLE);
+            doneBtn.setVisibility(View.INVISIBLE);
+        }
+    }
 
-        public DemoPagerAdapter(FragmentManager fm) {
+    public class TutorialPagerAdapter extends FragmentPagerAdapter {
+
+        public TutorialPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -101,7 +125,7 @@ public class TutorialActivity extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            return colorList.size();
+            return colorArray.length;
         }
     }
 }

@@ -2,9 +2,7 @@ package pl.solaris.arexperience.activity;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
@@ -134,14 +132,7 @@ public class ContentActivity extends ActionBarActivity {
                 return true;
             case R.id.action_share:
                 screenshotSubscription = screenshotObservable.subscribe(bitmapPath -> {
-                    Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-                    shareIntent.setType("image/*");
-                    shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                            "CAR EXAMPLE");
-                    shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "message");
-                    shareIntent.putExtra(Intent.EXTRA_STREAM,
-                            Uri.parse(bitmapPath));
-                    startActivity(Intent.createChooser(shareIntent, "Share"));
+                    Utils.shareBitmap(this, bitmapPath);
                 });
                 return true;
         }

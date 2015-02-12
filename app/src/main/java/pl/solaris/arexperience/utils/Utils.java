@@ -1,6 +1,8 @@
 package pl.solaris.arexperience.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -10,6 +12,7 @@ import android.view.View;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import pl.solaris.arexperience.R;
 import rx.Observable;
 
 /**
@@ -17,11 +20,15 @@ import rx.Observable;
  */
 public class Utils {
 
-    public static File getPublicFileStorage(String filename) {
+    public static File getPublicDirStorage() {
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
         File picDir = new File(root + "/ArExperience");
         picDir.mkdirs();
-        return new File(picDir, filename);
+        return picDir;
+    }
+
+    public static File getPublicFileStorage(String filename) {
+        return new File(getPublicDirStorage(), filename);
     }
 
     public static Uri saveToExternalStorage(Context context, Bitmap bitmap, String name, String extension) {
@@ -62,5 +69,15 @@ public class Utils {
         return view != null ?
                 Observable.defer(() -> Observable.just(getBitmapForVisibleRegion(view)))
                 : Observable.empty();
+    }
+
+    public static void shareBitmap(Activity activity, String bitmapPath) {
+        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("image/jpeg");
+        shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, activity.getString(R.string.share_subejct));
+        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, activity.getString(R.string.share_msg));
+        shareIntent.putExtra(Intent.EXTRA_STREAM,
+                Uri.parse(bitmapPath));
+        activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.action_share)));
     }
 }

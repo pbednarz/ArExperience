@@ -28,9 +28,6 @@ import com.metaio.sdk.jni.MetaioSDK;
 import com.metaio.sdk.jni.Vector2di;
 import com.metaio.tools.Memory;
 import com.metaio.tools.Screen;
-import com.metaio.tools.SystemInfo;
-
-import pl.solaris.metaiosdk.R;
 
 /**
  * This is base activity to use Metaio SDK. It creates GLSurfaceView and handle all its callbacks
@@ -39,6 +36,9 @@ import pl.solaris.metaiosdk.R;
  */
 @TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
 public abstract class ARViewActivity extends FragmentActivity implements MetaioSurfaceView.Callback, OnTouchListener {
+
+    protected boolean drawFrame = false;
+
     /**
      * Defines whether the activity is currently paused
      */
@@ -112,8 +112,6 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
      */
     protected void loadNativeLibs() throws UnsatisfiedLinkError {
         IMetaioSDKAndroid.loadNativeLibs();
-        MetaioDebug.log(Log.INFO, "MetaioSDK libs loaded for " + SystemInfo.getDeviceABI() + " using "
-                + com.metaio.sdk.jni.SystemInfo.getAvailableCPUCores() + " CPU cores");
     }
 
     /**
@@ -154,7 +152,7 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         MetaioDebug.log("ARViewActivity.onCreate");
-
+        drawFrame = false;
         mDisplayListener = null;
         metaioSDK = null;
         mSurfaceView = null;
@@ -165,7 +163,7 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
             loadNativeLibs();
 
             // Create Metaio SDK by passing the Activity instance and the application signature
-            metaioSDK = MetaioSDK.CreateMetaioSDKAndroid(this, getResources().getString(R.string.metaioSDKSignature));
+            metaioSDK = MetaioSDK.CreateMetaioSDKAndroid(this, "VwH1DZoPlMt78MK0JQfyjRn4w8ip6TvMP+rGk/4E574=");
 
             if (metaioSDK == null) {
                 throw new Exception("Unsupported platform!");
@@ -336,15 +334,15 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
         final ESCREEN_ROTATION rotation = Screen.getRotation(this);
         metaioSDK.setScreenRotation(rotation);
-
-        MetaioDebug.log("onConfigurationChanged: " + rotation);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if (!drawFrame)
+            return false;
+
         if (event.getAction() == MotionEvent.ACTION_UP) {
             MetaioDebug.log("ARViewActivity touched at: " + event.toString());
 
@@ -356,12 +354,10 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
                 // ask the SDK if a geometry has been hit
                 IGeometry geometry = metaioSDK.getGeometryFromViewportCoordinates(x, y, true);
                 if (geometry != null) {
-                    MetaioDebug.log("ARViewActivity geometry found: " + geometry);
                     onGeometryTouched(geometry);
                 }
 
             } catch (Exception e) {
-                MetaioDebug.log(Log.ERROR, "onTouch: " + e.getMessage());
                 MetaioDebug.printStackTrace(Log.ERROR, e);
             }
 
@@ -372,8 +368,7 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
 
     @Override
     public void onSurfaceCreated() {
-        MetaioDebug.log("ARViewActivity.onSurfaceCreated: " + mSurfaceView);
-        MetaioDebug.log("ARViewActivity.onSurfaceCreated: GL thread: " + Thread.currentThread().getId());
+        drawFrame = false;
         try {
             // initialize the renderer
             if (!mRendererInitialized) {
@@ -396,7 +391,6 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
                     }
                 });
             } else {
-                MetaioDebug.log("ARViewActivity.onSurfaceCreated: Reloading OpenGL resources...");
                 metaioSDK.reloadOpenGLResources();
             }
 
@@ -408,8 +402,10 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
     @Override
     public void onDrawFrame() {
         try {
-            // render the metaio SDK contents
-            metaioSDK.render();
+            if (mRendererInitialized && metaioSDK != null) {
+                drawFrame = true;
+                metaioSDK.render();
+            }
         } catch (Exception e) {
             MetaioDebug.log(Log.ERROR, "ARViewActivity.onDrawFrame: Rendering failed with error " + e.getMessage());
         }
@@ -417,15 +413,13 @@ public abstract class ARViewActivity extends FragmentActivity implements MetaioS
 
     @Override
     public void onSurfaceDestroyed() {
-        MetaioDebug.log("ARViewActivity.onSurfaceDestroyed: " + mSurfaceView);
+        drawFrame = false;
         mSurfaceView = null;
     }
 
     @Override
     public void onSurfaceChanged(int width, int height) {
-        MetaioDebug.log("ARViewActivity.onSurfaceChanged: " + width + ", " + height);
-
-        // resize renderer viewport
+        drawFrame = false;
         metaioSDK.resizeRenderer(width, height);
     }
 

@@ -15,4 +15,9 @@
     <string name="flash">FLASH: </string>
     <string name="skip">Skip</string>
     <string name="done">Done</string>
+
+    <string name="share_msg">Check this screenshot!</string>
+    <string name="share_subejct">ArExperience - the Augmented Reality app</string>
+    <string name="action_share">Share Screenshot</string>
+    <string name="share_error">Unable to save the image. Please make sure that SD card is available on the phone and the phone is not connected to the USB cable.</string>
 </resources>

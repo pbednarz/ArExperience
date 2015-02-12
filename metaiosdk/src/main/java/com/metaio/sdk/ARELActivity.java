@@ -25,7 +25,7 @@ public class ARELActivity extends ARViewActivity {
     /**
      * Intent extra key for the AREL scene file path (File object). Append this to getPackageName(),
      * e.g.
-     * <p/>
+     * <p>
      * <code>intent.putExtra(getPackageName()+ARELActivity.INTENT_EXTRA_AREL_SCENE, filepath);</code>
      */
     public static final String INTENT_EXTRA_AREL_SCENE = ".AREL_SCENE";
@@ -154,7 +154,6 @@ public class ARELActivity extends ARViewActivity {
     @Override
     public void onSurfaceCreated() {
         super.onSurfaceCreated();
-        MetaioDebug.log("ARELActivity.onSurfaceCreated");
 
         if (mGestureHandler == null) {
             // create gesture handler and initialize AREL interpreter
@@ -169,8 +168,6 @@ public class ARELActivity extends ARViewActivity {
     @Override
     public void onSurfaceChanged(int width, int height) {
         super.onSurfaceChanged(width, height);
-        MetaioDebug.log("ARELActivity.onSurfaceChanged: " + width + ", " + height);
-
         if (mRendererInitialized) {
             mARELInterpreter.onSurfaceChanged(width, height);
         }
@@ -185,8 +182,6 @@ public class ARELActivity extends ARViewActivity {
      * Load AREL scene
      */
     protected void loadARELScene() {
-        MetaioDebug.log("ARELActivity.loadARELScene");
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -213,7 +208,6 @@ public class ARELActivity extends ARViewActivity {
 
     @Override
     protected void onGeometryTouched(final IGeometry geometry) {
-        MetaioDebug.log("MetaioSDKCallbackHandler.onGeometryTouched: " + geometry);
     }
 
     /**
@@ -224,7 +218,10 @@ public class ARELActivity extends ARViewActivity {
      * @return true if handled
      */
     protected boolean onScreenshot(Bitmap bitmap, boolean saveToGalleryWithoutDialog) {
-        return true;
+        return false;
+    }
+
+    protected void onSceneComplete() {
     }
 
     /**
@@ -244,6 +241,12 @@ public class ARELActivity extends ARViewActivity {
             bitmap.recycle();
             bitmap = null;
             return result;
+        }
+
+        @Override
+        public void onSceneReady() {
+            super.onSceneReady();
+            onSceneComplete();
         }
     }
 }

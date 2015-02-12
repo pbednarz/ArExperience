@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="112dp"
         android:maxWidth="220dp"
         android:text="dsadasdsadsdsada\n\nsdasdasdsadadsadasdsadsadsadasdasdasdsada"
         android:textColor="#FFF"
