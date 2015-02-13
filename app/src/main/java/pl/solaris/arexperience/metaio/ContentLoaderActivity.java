@@ -7,17 +7,14 @@ import android.os.Bundle;
 import android.support.v4.os.AsyncTaskCompat;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.Toast;
 
 import com.metaio.sdk.MetaioDebug;
 import com.metaio.tools.io.AssetsManager;
-import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import pl.solaris.arexperience.BuildConfig;
 import pl.solaris.arexperience.R;
 
@@ -26,20 +23,15 @@ import pl.solaris.arexperience.R;
  */
 public class ContentLoaderActivity extends Activity {
 
-    @InjectView(R.id.pb)
-    ProgressWheel pb;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loader);
         ButterKnife.inject(this);
-        pb.spin();
         AsyncTaskCompat.executeParallel(new AssetsExtracter(this), 0);
     }
 
     public void openContent(Boolean result) {
-        pb.setVisibility(View.GONE);
         if (result) {
             Intent intent = new Intent(this, RecognitionActivity.class);
             startActivity(intent);

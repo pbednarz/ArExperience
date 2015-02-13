@@ -1,21 +1,22 @@
 <resources>
     <string name="app_name">ArExperience</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!--ACTIVITIES-->
+    <string name="title_activity_metaio">AR - Scan</string>
+    <string name="title_activity_content">WebView</string>
+    <string name="title_activity_tutorial">Tutorial</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_arelview">ARELViewActivity</string>
-    <string name="title_activity_content">ContentActivity</string>
-
+    <!--SCANNER-->
+    <string name="scanner_opening_camera">Initializing camera…</string>
     <string name="on">|</string>
     <string name="off">◯</string>
     <string name="flash">FLASH: </string>
+
+    <!--TUTORIAL-->
     <string name="skip">Skip</string>
     <string name="done">Done</string>
 
+    <!--SHARE-->
     <string name="share_msg">Check this screenshot!</string>
     <string name="share_subejct">ArExperience - the Augmented Reality app</string>
     <string name="action_share">Share Screenshot</string>
