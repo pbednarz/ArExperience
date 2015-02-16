@@ -8,4 +8,12 @@
         <attr name="ci_animator_reverse" format="reference" />
         <attr name="ci_drawable" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="ShowcaseFragment">
+        <attr name="scf_style" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ShowcaseAttrs">
+        <attr name="scv_circle_color" format="color|reference" />
+    </declare-styleable>
 </resources>

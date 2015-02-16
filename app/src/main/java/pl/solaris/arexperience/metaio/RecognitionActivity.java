@@ -32,6 +32,7 @@ import butterknife.OnClick;
 import pl.solaris.arexperience.BuildConfig;
 import pl.solaris.arexperience.R;
 import pl.solaris.arexperience.activity.ContentActivity;
+import pl.solaris.arexperience.tutorial.ShowcaseFragment;
 import pl.solaris.arexperience.view.FlashSwitch;
 
 /**
@@ -44,24 +45,17 @@ public class RecognitionActivity extends ARViewActivity {
     public static final int IMAGE_RECOGNITION = 1;
     @InjectView(R.id.flashSwitch)
     FlashSwitch flashBtn;
-
     @InjectView(R.id.action_qrcode)
     FloatingActionButton actionQr;
-
     @InjectView(R.id.action_star)
     FloatingActionButton actionStar;
-
     @InjectView(R.id.actions_menu)
     FloatingActionsMenu actionsMenu;
-
     @InjectView(R.id.indicator_image)
     ImageView typeImageView;
-
     @InjectView(R.id.root)
     FrameLayout flRoot;
-
     private MetaioSDKCallbackHandler mCallbackHandler;
-    private boolean hasFlash;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -141,7 +135,7 @@ public class RecognitionActivity extends ARViewActivity {
 
     @OnClick(R.id.action_star)
     public void startClicked(View doClick) {
-        actionsMenu.collapse();
+        ShowcaseFragment.startShowcase(this, currentScanner);
     }
 
     public void openContentActivity(String url) {
@@ -202,6 +196,5 @@ public class RecognitionActivity extends ARViewActivity {
 
             }
         }
-
     }
 }

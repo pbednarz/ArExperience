@@ -43,6 +43,7 @@
             android:name=".metaio.ContentLoaderActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
             android:label="@string/title_activity_metaio"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".metaio.ARELViewActivity"
@@ -53,6 +54,7 @@
             android:name=".metaio.RecognitionActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
             android:label="@string/title_activity_metaio"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
             android:name=".activity.ContentActivity"
