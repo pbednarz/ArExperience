@@ -2,10 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:foreground="@drawable/ic_frame"
     tools:context="pl.solaris.arexperience.MainActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/ic_frame" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/scanner_opening_camera"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
 </FrameLayout>

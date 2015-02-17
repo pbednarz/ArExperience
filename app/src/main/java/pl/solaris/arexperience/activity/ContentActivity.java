@@ -156,9 +156,11 @@ public class ContentActivity extends ActionBarActivity {
         if (screenshotSubscription != null) {
             screenshotSubscription.unsubscribe();
         }
+        screenshotSubscription = null;
         if (mWebView != null) {
             mWebView.destroy();
         }
+        mWebView = null;
     }
 
     @Override

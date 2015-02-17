@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
@@ -38,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/done_btn"
+        android:layout_alignLeft="@+id/description"
         android:autoLink="web"
         android:background="@drawable/btn_semi_transparent_selector"
         android:linksClickable="true"

@@ -30,21 +30,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen">
-        <intent-filter>
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:label="@string/title_activity_metaio"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.Fullscreen">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".tutorial.TutorialActivity"
-            android:label="@string/title_activity_tutorial" />
-        <activity
-            android:name=".metaio.ContentLoaderActivity"
-            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
-            android:label="@string/title_activity_metaio"
-            android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.Fullscreen" />
+
         <activity
             android:name=".metaio.ARELViewActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"

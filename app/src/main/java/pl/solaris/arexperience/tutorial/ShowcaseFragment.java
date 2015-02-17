@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,13 +40,14 @@ public class ShowcaseFragment extends Fragment {
                 .beginTransaction();
         ft.add(android.R.id.content, ShowcaseFragment.newInstance(scannerType));
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack(null);
+        ft.addToBackStack("showcase");
         ft.commit();
     }
 
     public static ShowcaseFragment newInstance(@RecognitionActivity.Scanner int scannerType) {
         ShowcaseFragment fragment = new ShowcaseFragment();
         Bundle args = new Bundle();
+        args.putInt(ARG_SCANNER_TPE, scannerType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,8 +62,23 @@ public class ShowcaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        showcaseTitle.setText("title");
-        showcaseDetails.setText("desc");
+        switch (getArguments().getInt(ARG_SCANNER_TPE, RecognitionActivity.IMAGE_RECOGNITION)) {
+            case RecognitionActivity.QR_CODE: {
+                showcaseTitle.setText(getString(R.string.title_qr));
+                showcaseDetails.setText(getString(R.string.desc_qr));
+                showcaseTarget.setImageResource(R.drawable.ic_qr);
+                break;
+            }
+            case RecognitionActivity.IMAGE_RECOGNITION:
+            default: {
+                showcaseTitle.setText(getString(R.string.title_recognition));
+                showcaseDetails.setText(getString(R.string.desc_recognition));
+                showcaseTarget.setImageResource(R.drawable.ic_eye);
+            }
+
+            showcaseDetails.setMovementMethod(new ScrollingMovementMethod());
+        }
+
         showcaseTarget.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -70,7 +87,7 @@ public class ShowcaseFragment extends Fragment {
                 return false;
             }
         });
-        showcaseTarget.setImageResource(R.drawable.ic_eye);
+
     }
 
     @Override

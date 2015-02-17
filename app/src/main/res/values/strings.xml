@@ -4,7 +4,6 @@
     <!--ACTIVITIES-->
     <string name="title_activity_metaio">AR - Scan</string>
     <string name="title_activity_content">WebView</string>
-    <string name="title_activity_tutorial">Tutorial</string>
 
     <!--SCANNER-->
     <string name="scanner_opening_camera">Initializing camera…</string>
@@ -15,6 +14,16 @@
     <!--TUTORIAL-->
     <string name="skip">Skip</string>
     <string name="done">Done</string>
+
+    <string name="source">https://github.com/sol4ris/ArExperience</string>
+    <string name="title_qr">QR and Barcode Reader\n(Demo)</string>
+    <string name="desc_qr">The Metaio SDK includes a QR and Barcode reader.
+    \nScan example QR Code or generate it yourself to load website, video and more.
+    \n\nIf you want to test the Image Recognition please select \'eye\' icon from menu on the right.</string>
+
+    <string name="title_recognition">Image Recognition\n(Demo)</string>
+    <string name="desc_recognition">The Metaio SDK provide reliable tracking technology for 2-D images, 3-D objects and environments, SLAM instant tracking, location-based tracking and more. Demo is using 2D images recognition only.
+    \n\nIf you want to test the QR/Barcode scanner select icon from menu on the right.</string>
 
     <!--SHARE-->
     <string name="share_msg">Check this screenshot!</string>

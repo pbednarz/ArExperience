@@ -1,6 +1,8 @@
 package pl.solaris.arexperience.metaio;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.animation.OvershootInterpolator;
 import android.webkit.URLUtil;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -182,14 +185,30 @@ public class RecognitionActivity extends ARViewActivity {
                             }
                         });
                     } else {
-                        final String[] tokens = v.getAdditionalValues().split("::");
-                        if (tokens.length > 1 && URLUtil.isValidUrl(tokens[1])) {
-                            this_.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    this_.openContentActivity(tokens[1]);
-                                }
-                            });
+                        final String values = v.getAdditionalValues();
+                        final String[] tokens = values.split("::");
+                        if (tokens.length > 1) {
+                            if (URLUtil.isValidUrl(tokens[1])) {
+                                this_.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        this_.openContentActivity(tokens[1]);
+                                    }
+                                });
+                            } else {
+                                this_.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tokens[1]));
+                                        try {
+                                            this_.startActivity(intent);
+                                        } catch (ActivityNotFoundException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(this_, tokens[1], Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            }
                         }
                     }
                 }
