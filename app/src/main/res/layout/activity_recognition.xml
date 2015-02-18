@@ -35,6 +35,15 @@
             fab:fab_title="Label on the right" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_panorama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/accent"
+            fab:fab_colorPressed="@color/accent_dark"
+            fab:fab_icon="@drawable/ic_panorama"
+            fab:fab_title="Another one on the right" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_qrcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

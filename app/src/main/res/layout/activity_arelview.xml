@@ -17,6 +17,6 @@
         android:layout_gravity="right|bottom"
         fab:fab_colorNormal="@color/accent"
         fab:fab_colorPressed="@color/accent_dark"
-        fab:fab_icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+        fab:fab_icon="@drawable/ic_camera"
         fab:fab_title="Another one on the right" />
 </FrameLayout>

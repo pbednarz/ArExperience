@@ -141,6 +141,12 @@ public class RecognitionActivity extends ARViewActivity {
         ShowcaseFragment.startShowcase(this, currentScanner);
     }
 
+    @OnClick(R.id.action_panorama)
+    public void panoramaClicked() {
+        actionsMenu.collapse();
+        openARELActivity();
+    }
+
     public void openContentActivity(String url) {
         Intent i = new Intent(this, ContentActivity.class);
         i.putExtra(ContentActivity.WEBPAGE_EXTRA, url);
