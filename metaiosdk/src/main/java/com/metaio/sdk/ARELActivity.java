@@ -200,7 +200,6 @@ public class ARELActivity extends ARViewActivity {
 
                 // show AREL webview and start handling touch events
                 mWebView.setOnTouchListener(mGestureHandler);
-
             }
         });
 

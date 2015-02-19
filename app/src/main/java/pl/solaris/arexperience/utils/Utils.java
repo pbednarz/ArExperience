@@ -48,7 +48,7 @@ public class Utils {
         return null;
     }
 
-    public static void refreshSd(File file, Context context) {
+    public static void refreshSd(final File file, final Context context) {
         MediaScannerConnection.scanFile(
                 context,
                 new String[]{file.getAbsolutePath()},
@@ -57,7 +57,7 @@ public class Utils {
                 });
     }
 
-    private static Bitmap getBitmapForVisibleRegion(View view) {
+    private static Bitmap getBitmapForVisibleRegion(final View view) {
         Bitmap returnedBitmap = null;
         view.setDrawingCacheEnabled(true);
         returnedBitmap = Bitmap.createBitmap(view.getDrawingCache());
@@ -65,13 +65,13 @@ public class Utils {
         return returnedBitmap;
     }
 
-    public static Observable<Bitmap> getViewBitmapObservable(View view) {
+    public static Observable<Bitmap> getViewBitmapObservable(final View view) {
         return view != null ?
                 Observable.defer(() -> Observable.just(getBitmapForVisibleRegion(view)))
                 : Observable.empty();
     }
 
-    public static void shareBitmap(Activity activity, String bitmapPath) {
+    public static void shareBitmap(final Activity activity, final String bitmapPath) {
         Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
         shareIntent.setType("image/jpeg");
         shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, activity.getString(R.string.share_subejct));

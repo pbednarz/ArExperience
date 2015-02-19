@@ -116,10 +116,18 @@ public class RecognitionActivity extends ARViewActivity {
         currentScanner = scanner;
         if (scanner == IMAGE_RECOGNITION) {
             File trackingConfigFile = AssetsManager.getAssetPathAsFile(getApplicationContext(), "html/resources/TrackingConfig_80a166e45834cf806bdeebbd5e4da0af.zip");
-            metaioSDK.setTrackingConfiguration(trackingConfigFile);
+            loadFileTracking(trackingConfigFile);
         } else {
-            metaioSDK.setTrackingConfiguration("QRCODE");
+            loadPredefinedTracking("QRCODE");
         }
+    }
+
+    private void loadFileTracking(final File trackingConfigFile) {
+        metaioSDK.setTrackingConfiguration(trackingConfigFile);
+    }
+
+    private void loadPredefinedTracking(String trackingConfig) {
+        metaioSDK.setTrackingConfiguration(trackingConfig);
     }
 
     @OnClick(R.id.action_qrcode)
@@ -182,7 +190,7 @@ public class RecognitionActivity extends ARViewActivity {
             for (int i = 0; i < trackingValues.size(); i++) {
                 final TrackingValues v = trackingValues.get(i);
                 if (v.isTrackingState() && activity.get() != null) {
-                    RecognitionActivity this_ = activity.get();
+                    final RecognitionActivity this_ = activity.get();
                     if (v.getCosName().equals("junaio_AugmentedRealityBrowser_1")) {
                         this_.runOnUiThread(new Runnable() {
                             @Override
