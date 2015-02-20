@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IntDef;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -59,6 +60,7 @@ public class RecognitionActivity extends ARViewActivity {
     @InjectView(R.id.root)
     FrameLayout flRoot;
     private MetaioSDKCallbackHandler mCallbackHandler;
+    private Handler loadingContentHandler = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,11 +125,21 @@ public class RecognitionActivity extends ARViewActivity {
     }
 
     private void loadFileTracking(final File trackingConfigFile) {
-        metaioSDK.setTrackingConfiguration(trackingConfigFile);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                metaioSDK.setTrackingConfiguration(trackingConfigFile);
+            }
+        }).start();
     }
 
     private void loadPredefinedTracking(String trackingConfig) {
-        metaioSDK.setTrackingConfiguration(trackingConfig);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                metaioSDK.setTrackingConfiguration(trackingConfig);
+            }
+        }).start();
     }
 
     @OnClick(R.id.action_qrcode)
